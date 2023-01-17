@@ -1,11 +1,11 @@
-def get_cheapest_fruit_id(data:str)->id:
+def get_cheapest_fruit_id(data: str) -> int:
     """
-    This function returns the index of the cheapest fruit in the list
+    This function returns the index of the cheapest fruit
 
     args:
-        data: CSV file with the fruits data
+        data (str): CSV file with the fruits data
     returns:
-        name of the cheapest fruit
+        int: id of the cheapest fruit
     """
     # your code here
     pass

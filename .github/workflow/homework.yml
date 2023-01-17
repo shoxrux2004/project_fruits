@@ -1,0 +1,37 @@
+name: csv
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      # Checkout the repository
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+        with:
+          repository: codeschooluz/project_fruits_test
+          token: ${{secrets.TEST_KEY}}
+          path: test
+      - name: Move files
+        run: |
+          cp -r test/data data && ls data
+      - name: Install dependencies
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Install pytest
+        run: |
+          pip install pytest
+          pip install requests
+      - name: Run tests
+        run: |
+          pytest -v --tb=no -q
+        continue-on-error: true
+      - name: Natijalar
+        run: |
+          CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}) 
+          python test/sendtest.py ${{github.actor}} '${{github.repository}}' "$CHANGED_FILES"
