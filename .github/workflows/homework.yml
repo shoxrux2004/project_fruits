@@ -16,9 +16,6 @@ jobs:
           repository: codeschooluz/project_fruits_test
           token: ${{secrets.TEST_KEY}}
           path: test
-      - name: Move files
-        run: |
-          cp -r test/data data && ls data
       - name: Install dependencies
         uses: actions/setup-python@v2
         with:
